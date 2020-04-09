@@ -139,6 +139,8 @@ public class ContextUtil {
                                 // Add entrance node.
                                 Constants.ROOT.addChild(node);
 
+                                //这里conextNameNodeMap是使用的hashMap，不能支持并发put。所以使用了COW的方式.
+                                //使用hashMap是因为写少，读多。使用hashmap效率比ConcurrentHashMap更快
                                 Map<String, DefaultNode> newMap = new HashMap<>(contextNameNodeMap.size() + 1);
                                 newMap.putAll(contextNameNodeMap);
                                 newMap.put(name, node);

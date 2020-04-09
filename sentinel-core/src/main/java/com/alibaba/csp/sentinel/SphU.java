@@ -89,7 +89,7 @@ public class SphU {
     }
 
     /**
-     * Checking all {@link Rule}s about the protected method.
+     * Checking all {@link Rule}s about the prRotected method.
      *
      * @param method the protected method
      * @throws BlockException if the block criteria is met, eg. when any rule's threshold is exceeded.

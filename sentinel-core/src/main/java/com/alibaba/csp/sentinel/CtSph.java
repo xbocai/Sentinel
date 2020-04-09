@@ -203,6 +203,7 @@ public class CtSph implements Sph {
                     }
 
                     chain = SlotChainProvider.newSlotChain();
+                    //利用COW提高并发效率
                     Map<ResourceWrapper, ProcessorSlotChain> newMap = new HashMap<ResourceWrapper, ProcessorSlotChain>(
                         chainMap.size() + 1);
                     newMap.putAll(chainMap);

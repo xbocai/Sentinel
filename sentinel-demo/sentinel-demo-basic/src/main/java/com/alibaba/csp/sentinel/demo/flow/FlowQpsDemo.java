@@ -65,7 +65,7 @@ public class FlowQpsDemo {
         // set limit qps to 20
         rule1.setCount(20);
         rule1.setGrade(RuleConstant.FLOW_GRADE_QPS);
-        rule1.setLimitApp("default");
+        rule1.setLimitApp("default, default2");
         rules.add(rule1);
         FlowRuleManager.loadRules(rules);
     }

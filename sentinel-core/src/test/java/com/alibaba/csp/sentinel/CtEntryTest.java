@@ -7,6 +7,7 @@ import com.alibaba.csp.sentinel.context.NullContext;
 import com.alibaba.csp.sentinel.node.Node;
 import com.alibaba.csp.sentinel.slotchain.StringResourceWrapper;
 
+import com.alibaba.csp.sentinel.slots.block.BlockException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -118,6 +119,72 @@ public class CtEntryTest {
         when(parentEntry.getCurNode()).thenReturn(node);
         entry.parent = parentEntry;
         assertSame(node, entry.getLastNode());
+    }
+
+    @Test
+    public void test4Context() {
+        try {
+            Context context=ContextUtil.enter("context1");
+            Entry entry=SphU.entry("A");
+            Entry entry2=SphU.entry("B");
+            Entry entry3=SphU.entry("C");
+            Entry entry4=SphU.entry("D");
+            Entry entry5=SphU.entry("E");
+            entry5.exit();
+            entry4.exit();
+            entry3.exit();
+            entry2.exit();
+            entry.exit();
+            ContextUtil.exit();
+        } catch (BlockException ex) {
+            System.out.println("blocked!");
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void test4Context2() {
+        try {
+            Context context=ContextUtil.enter("context1");
+            Entry entry=SphU.entry("A");
+            Entry entry2=SphU.entry("B");
+            entry2.exit();
+            Entry entry3=SphU.entry("C");
+            entry3.exit();
+            Entry entry4=SphU.entry("D");
+            Entry entry5=SphU.entry("E");
+            entry5.exit();
+            entry4.exit();
+            entry.exit();
+            ContextUtil.exit();
+        } catch (BlockException ex) {
+            // 处理被流控的逻辑
+            System.out.println("blocked!");
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void test4Context23() {
+        try {
+            Context context=ContextUtil.enter("context1");
+            Entry entry=SphU.entry("A");
+            Entry entry2=SphU.entry("B");
+            entry2.exit();
+            Entry entry3=SphU.entry("C");
+            entry3.exit();
+            Entry entry4=SphU.entry("A");
+            entry4.exit();
+            entry.exit();
+            ContextUtil.exit();
+        } catch (BlockException ex) {
+            // 处理被流控的逻辑
+            System.out.println("blocked!");
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     @Before

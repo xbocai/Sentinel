@@ -114,8 +114,7 @@ public abstract class Entry implements AutoCloseable {
 
     /**
      * Get related {@link Node} of the parent {@link Entry}.
-     *
-     * @return
+     * 获取上一个Node(不是最后一个)
      */
     public abstract Node getLastNode();
 

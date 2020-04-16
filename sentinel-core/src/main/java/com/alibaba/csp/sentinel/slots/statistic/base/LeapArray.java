@@ -265,6 +265,7 @@ public abstract class LeapArray<T> {
         return isWindowDeprecated(TimeUtil.currentTimeMillis(), windowWrap);
     }
 
+    //计算当前bucket的时间是否在有效事件内（比如1秒或者1分钟），如果不是就认为过期了，不统计。
     public boolean isWindowDeprecated(long time, WindowWrap<T> windowWrap) {
         return time - windowWrap.windowStart() > intervalInMs;
     }

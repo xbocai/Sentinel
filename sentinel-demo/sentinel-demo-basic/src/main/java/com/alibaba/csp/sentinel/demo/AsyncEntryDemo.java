@@ -159,6 +159,7 @@ public class AsyncEntryDemo {
             });
             // Then we call a sync resource.
             fetchSync();
+            System.out.println(entry.toString());
         } catch (BlockException ex) {
             // Request blocked, handle the exception.
             ex.printStackTrace();
@@ -175,8 +176,8 @@ public class AsyncEntryDemo {
         // EntranceNode: machine-root
         // -EntranceNode: async-context
         // --test-top
-        // ---test-sync
         // ---test-async
+        // ---test-sync
         // ----test-another-async
         // -----test-another-sync-in-async
         // ----test-sync-in-async

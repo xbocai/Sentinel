@@ -95,4 +95,19 @@ public class RateLimiterControllerTest {
             assertTrue(paceController.canPass(node, 0));
         }
     }
+
+    @Test
+    public void testPaceController_time() throws InterruptedException {
+        RateLimiterController paceController = new RateLimiterController(500, 10d);
+        Node node = mock(Node.class);
+
+        long start = TimeUtil.currentTimeMillis();
+        for (int i = 0; i < 20; i++) {
+            assertTrue(paceController.canPass(node, 1));
+            long time = (System.currentTimeMillis() - start) / 1000;
+            System.out.println(i + ", " + time);
+        }
+        long end = TimeUtil.currentTimeMillis();
+        assertTrue((end - start) > 400);
+    }
 }

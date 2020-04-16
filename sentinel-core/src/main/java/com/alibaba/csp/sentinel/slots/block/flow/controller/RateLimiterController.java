@@ -62,7 +62,7 @@ public class RateLimiterController implements TrafficShapingController {
         long expectedTime = costTime + latestPassedTime.get();
 
         if (expectedTime <= currentTime) {
-            // Contention may exist here, but it's okay.
+            // Contention may exist here, but it's okay.因为多个线程设置的currentTime的值都差不多相等的
             latestPassedTime.set(currentTime);
             return true;
         } else {
